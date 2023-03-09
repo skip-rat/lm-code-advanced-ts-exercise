@@ -5,8 +5,9 @@
 	"main": "index.js",
 	"scripts": {
 		"start-server": "nodemon server/src/main.ts --no-warnings",
-		"start-client": "nodemon client/src/main.mjs --no-warnings",
-		"test": "echo \"Error: no test specified\" && exit 1"
+		"start-client": "nodemon client/src/main.ts --no-warnings localhost 8080",
+		"build": "tsc --project tsconfig.build.json",
+		"test": "jest"
 	},
 	"repository": {
 		"type": "git",
@@ -20,11 +21,16 @@
 	"homepage": "https://github.com/techreturners/lm-code-advanced-ts-exercise#readme",
 	"dependencies": {
 		"@types/express": "^4.17.14",
+		"@types/jest": "^29.2.5",
+		"@types/node": "^18.14.2",
 		"eslint": "^8.29.0",
 		"eslint-config-prettier": "^8.5.0",
 		"express": "^4.18.2",
+		"jest": "^29.3.1",
+		"msw": "^1.0.1",
 		"nodemon": "^2.0.20",
 		"prettier": "^2.8.1",
+		"ts-jest": "^29.0.3",
 		"ts-node": "^10.9.1",
 		"typescript": "^4.9.4"
 	}

@@ -1,12 +1,11 @@
 {
 	"compilerOptions": {
 		"module": "ES2022",
-		"target": "ES2022",
 		"strict": true,
 		"moduleResolution": "Node",
 		"noImplicitAny": true,
 		"sourceMap": true,
-		"allowSyntheticDefaultImports": true,
+		"allowSyntheticDefaultImports": true
 	},
 	"include": ["**/*"],
 	"exclude": ["node_modules", "**/*.spec.ts"],

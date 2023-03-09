@@ -1,7 +1,8 @@
 import * as express from "express";
 import { Express } from "express";
-import { getAllPosts } from "../services/posts_service";
-import { getAllUsers } from "../services/users_service";
+import { sendMessage } from "../services/message_service";
+import { addPost, getAllPosts } from "../services/posts_service";
+import { addUser, getAllUsers } from "../services/users_service";
 
 /*
 
@@ -56,10 +57,7 @@ function addAPIRoutes(app: Express) {
 	console.log("📨  Adding messaging route...");
 	apiRouter.post("/send/", (req, res) => {
 		const { body } = req;
-
-		// we don't do anything with the message, but let's echo it back in the console
-		console.log(`👋 Received "${body.message}"`);
-
+		sendMessage(body.message);
 		// reply with a success boolean
 		res.status(200).send({ success: true });
 	});
@@ -68,6 +66,16 @@ function addAPIRoutes(app: Express) {
 	console.log("✍️  Adding blog post routes...");
 	apiRouter.get("/posts/all", (req, res) => {
 		res.status(200).send(JSON.stringify(getAllPosts()));
+	});
+
+	apiRouter.post("/posts/add", (req, res) => {
+		const { body } = req;
+		const result = addPost(body.post);
+		if(typeof result === 'string') {
+			res.status(500).send(JSON.stringify({ error: result}));
+		} else {			
+			res.status(200).send(JSON.stringify({ post: result}));
+		}
 	});
 
 	apiRouter.get("/posts/:id", (req, res) => {
@@ -82,7 +90,15 @@ function addAPIRoutes(app: Express) {
 		res.status(200).send(JSON.stringify(getAllUsers()));
 	});
 
-	// ❗ [1] See README
+	apiRouter.post("/users/add", (req, res) => {
+		const { body } = req;
+		const result = addUser(body.username);
+		if(typeof result === 'string') {
+			res.status(500).send(JSON.stringify({ error: result}));
+		} else {			
+			res.status(200).send(JSON.stringify({ user: result}));
+		}
+	});
 
 	apiRouter.get("/users/:id", (req, res) => {
 		res

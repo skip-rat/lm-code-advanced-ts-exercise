@@ -5,6 +5,7 @@ import { initialiseRoutes } from "./routes/routes";
 import { printNewLine } from "./helpers/helpers";
 import { validateConfig } from "./config/validate_config";
 import { getConfig } from "./config/config";
+import { setupData } from "./database/data_access";
 
 try {
 	printNewLine();
@@ -28,6 +29,9 @@ try {
 
 	console.log("👉 Enabling URL-Encoded middleware...");
 	app.use(express.urlencoded({ extended: true }));
+	
+	console.log("💿 Setting up in memory data...");
+	setupData();
 
 	initialiseRoutes(app);
 
